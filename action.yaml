@@ -1,0 +1,39 @@
+name: 'Ontrack CLI Build'
+description: 'Creates or updates, configures a build'
+inputs:
+  project:
+    description: |
+      Name of the Ontrack project. If not set, the action will try to get the information
+      from the current GitHub repository.
+    required: false
+    default: ""
+  branch:
+    description: |
+      Name of the Ontrack branch.If not set, the action will try to get the information
+      from the current Git branch.
+    required: false
+    default: ""
+  build:
+    description: |
+      Name of the build to create. Use a default name if not provided.
+    required: false
+    default: ""
+  release:
+    description: |
+      Release label to associate with the build.
+    required: false
+    default: ""
+  runInfo:
+    description: |
+      Associates some run info with the build (duration, trigger, etc.).
+    required: false
+    default: "false"
+  logging:
+    description: |
+      `true` if operations must be logged.
+    required: false
+    default: "false"
+outputs: {}
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
