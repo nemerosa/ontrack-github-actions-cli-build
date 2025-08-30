@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const exec = require('@actions/exec');
 const github = require('@actions/github');
 
 (async () => {
@@ -32,8 +33,25 @@ async function setup() {
     }
 
     // Logging
-    const logging = core.getInput("logging") === 'true' || core.getInput("logging") === true
+    const loggingInput = core.getInput("logging");
+    const logging = loggingInput === 'true' || loggingInput === true
     console.log(`Project: ${project}`)
     console.log(`Branch: ${branch}`)
     console.log(`Build name: ${buildName}`)
+
+    // CLI command to prepare
+    const executable = core.getInput("executable")
+    let args = [
+        "build",
+        "setup",
+        "--project", project,
+        "--branch", branch,
+        "--build", buildName,
+    ]
+    // Logging
+    if (logging) {
+        console.log(`CLI ${executable} `, args)
+    }
+    // Running the command
+    await exec.exec(executable, args)
 }

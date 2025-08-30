@@ -33,6 +33,10 @@ inputs:
       `true` if operations must be logged.
     required: false
     default: "false"
+  executable:
+    description: Name of the Ontrack CLI executable
+    required: false
+    default: ontrack-cli
 outputs: {}
 runs:
   using: 'node16'
