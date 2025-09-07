@@ -28,6 +28,11 @@ inputs:
       Associates some run info with the build (duration, trigger, etc.).
     required: false
     default: "false"
+  workflowRun:
+    description: |
+      Associates the build to a link to the workflow run
+    required: false
+    default: "false"
   logging:
     description: |
       `true` if operations must be logged.

@@ -61,7 +61,7 @@ async function setup() {
     // Run info
     const runInfoInput = core.getInput("runInfo")
     if (runInfoInput === 'true' || runInfoInput === true) {
-        const runUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+        const runUrl = getWorkflowRunUrl()
         args.push("--source-type", "github", "--source-uri", runUrl, "--trigger-type", github.context.eventName)
     }
 
@@ -71,4 +71,46 @@ async function setup() {
     }
     // Running the command
     await exec.exec(executable, args)
+
+    // Workflow run
+    const workflowRunInput = core.getInput("workflowRun")
+    if (workflowRunInput === 'true' || workflowRunInput === true) {
+        await setWorkflowRun(logging, project, branch, buildName)
+    }
+}
+
+async function setWorkflowRun(logging, project, branch, buildName) {
+    // Property value
+    const value = {
+        workflows: [
+            {
+                runId: github.context.runId,
+                url: getWorkflowRunUrl(),
+                name: github.context.workflow,
+                runNumber: github.context.runNumber,
+                running: false,
+                event: github.context.eventName,
+            }
+        ]
+    }
+    // CLI command to prepare
+    const executable = core.getInput("executable")
+    let args = [
+        "build",
+        "set-property",
+        "--project", project,
+        "--branch", branch,
+        "--build", buildName,
+        "generic",
+        "--property", "net.nemerosa.ontrack.extension.github.workflow.BuildGitHubWorkflowRunPropertyType",
+        "--value", JSON.stringify(value),
+    ]
+    if (logging) {
+        console.log(`CLI ${executable} `, args)
+    }
+    await exec.exec(executable, args)
+}
+
+function getWorkflowRunUrl() {
+    return `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
 }

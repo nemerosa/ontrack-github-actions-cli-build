@@ -31,6 +31,10 @@ Release label to associate with the build.
 
 Associates some run info with the build (duration, trigger, etc.).
 
+### `workflowRun`
+
+Associates the build to a link to the workflow run
+
 ## Outputs
 
 None.
