@@ -48,6 +48,8 @@ async function setup() {
         "--branch", branch,
         "--build", buildName,
     ]
+    // Commit
+    args.push("--commit", github.context.sha)
     // Logging
     if (logging) {
         console.log(`CLI ${executable} `, args)
