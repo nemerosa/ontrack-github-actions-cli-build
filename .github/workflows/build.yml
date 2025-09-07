@@ -1,0 +1,28 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        uses: actions/checkout@v4
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Ontrack setup
+        if: github.repository_owner == 'nemerosa'
+        uses: nemerosa/ontrack-github-actions-cli-setup@v2
+        id: ontrack
+        with:
+          url: ${{ vars.ONTRACK_URL }}
+          token: ${{ secrets.ONTRACK_TOKEN }}
+          config: github.com
+          indexation: 120
+      - name: Build
+        run: npm install
