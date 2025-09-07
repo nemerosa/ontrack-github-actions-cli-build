@@ -36,3 +36,4 @@ jobs:
           project: ${{ steps.ontrack.outputs.project }}
           branch: ${{ steps.ontrack.outputs.branch }}
           build: ${{ github.run_number }}
+          release: "0.0.${{ github.run_number }}"

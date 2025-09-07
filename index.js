@@ -48,8 +48,16 @@ async function setup() {
         "--branch", branch,
         "--build", buildName,
     ]
+
     // Commit
     args.push("--commit", github.context.sha)
+
+    // Release
+    const release = core.getInput("release")
+    if (release) {
+        args.push("--release", release)
+    }
+
     // Logging
     if (logging) {
         console.log(`CLI ${executable} `, args)
