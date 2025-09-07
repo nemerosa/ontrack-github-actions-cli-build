@@ -38,3 +38,4 @@ jobs:
           build: ${{ github.run_number }}
           release: "0.0.${{ github.run_number }}"
           runInfo: true
+          workflowRun: true
