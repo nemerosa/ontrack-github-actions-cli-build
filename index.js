@@ -58,6 +58,13 @@ async function setup() {
         args.push("--release", release)
     }
 
+    // Run info
+    const runInfoInput = core.getInput("runInfo")
+    if (runInfoInput === 'true' || runInfoInput === true) {
+        const runUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+        args.push("--source-type", "github", "--source-uri", runUrl, "--trigger-type", github.context.eventName)
+    }
+
     // Logging
     if (logging) {
         console.log(`CLI ${executable} `, args)
