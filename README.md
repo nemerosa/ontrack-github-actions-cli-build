@@ -44,7 +44,7 @@ None.
 Creating a build with a given name and default setup:
 
 ```yaml
-- name: Setup the CLI
+- name: Creating the build
   uses: nemerosa/ontrack-github-actions-cli-build@v1
   with:
     release: ${{ env.VERSION }}
