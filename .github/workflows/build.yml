@@ -28,7 +28,9 @@ jobs:
           auto-validation-stamps: true
           auto-promotion-levels: true
       - name: Build
-        run: npm install
+        run: |
+          npm install
+          ncc build
       - name: Build creation
         uses: ./
         with:
