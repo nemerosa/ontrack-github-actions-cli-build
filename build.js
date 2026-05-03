@@ -1,5 +1,5 @@
 const esbuild = require('esbuild');
-const license = require('esbuild-plugin-license');
+const license = require('esbuild-plugin-license').default;
 
 esbuild.build({
     entryPoints: ['index.js'],
