@@ -96,11 +96,11 @@ module.exports = { runAction, setWorkflowRun, getWorkflowRunUrl };
 
 if (process.env.NODE_ENV !== 'test') {
     (async () => {
-        const core = (await import('@actions/core')).default;
-        const exec = (await import('@actions/exec')).default;
-        const github = (await import('@actions/github')).default;
+        const core = await import('@actions/core');
+        const execDep = await import('@actions/exec');
+        const github = await import('@actions/github');
         try {
-            await runAction({ core, exec, github });
+            await runAction({ core, exec: execDep, github });
         } catch (error) {
             core.setFailed(error.message);
         }

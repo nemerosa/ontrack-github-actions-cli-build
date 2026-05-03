@@ -25828,11 +25828,11 @@ function getWorkflowRunUrl() {
 module.exports = { runAction, setWorkflowRun, getWorkflowRunUrl };
 if (process.env.NODE_ENV !== "test") {
   (async () => {
-    const core = (await Promise.resolve().then(() => (init_core(), core_exports))).default;
-    const exec2 = (await Promise.resolve().then(() => (init_exec(), exec_exports))).default;
-    const github = (await Promise.resolve().then(() => (init_github(), github_exports))).default;
+    const core = await Promise.resolve().then(() => (init_core(), core_exports));
+    const execDep = await Promise.resolve().then(() => (init_exec(), exec_exports));
+    const github = await Promise.resolve().then(() => (init_github(), github_exports));
     try {
-      await runAction({ core, exec: exec2, github });
+      await runAction({ core, exec: execDep, github });
     } catch (error2) {
       core.setFailed(error2.message);
     }
