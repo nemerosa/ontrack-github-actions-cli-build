@@ -33,7 +33,7 @@ jobs:
       - run: npm test
 
       - name: Ontrack setup
-        if: github.repository_owner == 'nemerosa'
+        if: github.repository_owner == 'nemerosa' && vars.ONTRACK_URL != ''
         uses: nemerosa/ontrack-github-actions-cli-setup@v2
         id: ontrack
         with:
@@ -46,7 +46,7 @@ jobs:
           auto-promotion-levels: true
 
       - name: Self-test (Build creation)
-        if: github.repository_owner == 'nemerosa'
+        if: github.repository_owner == 'nemerosa' && vars.ONTRACK_URL != ''
         uses: ./
         with:
           logging: true
